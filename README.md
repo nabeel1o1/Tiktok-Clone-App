@@ -22,6 +22,35 @@ The Tiktok-Clone App is a video-sharing application inspired by TikTok. It allow
 
 ## Core Business Logic
 
+## Pagination Logic
+
+```kotlin
+class HomeFeedRepo @Inject constructor(private val tiktokApi: TiktokApiService) :
+    PagingSource<Int, Data>() {
+
+    override fun getRefreshKey(state: PagingState<Int, Data>): Int? {
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
+        }
+    }
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Data> {
+        return try {
+            val position = params.key ?: 1
+            val response = tiktokApi.getHomeFeed(page = position)
+            LoadResult.Page(
+                data = response.data,
+                prevKey = if (position == 1) null else position - 1,
+                nextKey = if (response.pagination.hasNextPage) position + 1 else null
+            )
+        } catch (e: Exception) {
+            LoadResult.Error(e)
+        }
+    }
+}
+```
+
 ### Device Resolution Check and Video Selection
 
 The following logic is used to select the appropriate video URL based on device codec support:
