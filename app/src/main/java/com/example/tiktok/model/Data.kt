@@ -1,0 +1,30 @@
+package com.example.tiktok.model
+
+data class Data(
+    val _id: String,
+    val addToPlaylist: Boolean,
+    val aiGeneratedContent: Boolean,
+    val audio: Audio,
+    val bookmarked: Boolean,
+    val counts: Counts,
+    val createdAt: String,
+    val description: String,
+    val liked: Boolean,
+    val location: String,
+    val media: Media,
+    val mentionedUsers: List<Any>? = emptyList(),
+    val ownBrand: Boolean,
+    val privacySettings: PrivacySettings,
+    val promotionalVideo: Boolean,
+    val shareCount: Int,
+    val status: String,
+    val suspended: Boolean,
+    val tags: List<String>? = emptyList(),
+    val title: String,
+    val type: String,
+    val updatedAt: String,
+    val user: User,
+    val userId: String,
+    val videoDetails: VideoDetails,
+    val views: Int
+)
