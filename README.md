@@ -22,7 +22,7 @@ The Tiktok-Clone App is a video-sharing application inspired by TikTok. It allow
 
 ## Core Business Logic
 
-## Pagination Logic
+### Pagination Logic
 
 ```kotlin
 class HomeFeedRepo @Inject constructor(private val tiktokApi: TiktokApiService) :
