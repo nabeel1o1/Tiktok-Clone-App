@@ -2,6 +2,7 @@ package com.example.tiktok.view.fragments
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,11 +82,6 @@ class HomeFragment : Fragment() {
                 adapter.playVideo(it, visiblePosition)
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        adapter.resumeCurrentVideo()
     }
 
     override fun onPause() {

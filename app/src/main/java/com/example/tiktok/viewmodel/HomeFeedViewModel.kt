@@ -19,8 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeFeedViewModel @Inject constructor(private val homeFeedRepository: HomeFeedRepo) : ViewModel() {
 
-    val supportsH265 = isCodecSupported(MediaFormat.MIMETYPE_VIDEO_HEVC) // For H265
-    val supportsH264 = isCodecSupported(MediaFormat.MIMETYPE_VIDEO_AVC)  // For H264
+    private val supportsH265 = isCodecSupported(MediaFormat.MIMETYPE_VIDEO_HEVC)
+    private val supportsH264 = isCodecSupported(MediaFormat.MIMETYPE_VIDEO_AVC)
 
     val homeFeedDataList = getHomeFeedData().cachedIn(viewModelScope)
 
@@ -30,7 +30,7 @@ class HomeFeedViewModel @Inject constructor(private val homeFeedRepository: Home
     ).liveData.map { pagingData ->
         pagingData.map { videoItem ->
             videoItem.copy(media = videoItem.media.copy(
-                key = videoItem.media.getVideoUrl(supportsH265, supportsH264)
+                key = videoItem.media.getVideoUrl(supportsH265, supportsH264) ?: videoItem.media.key
             ))
         }
     }
